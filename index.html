@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <div id="waveform">
+      <progress id="progress" class="progress progress-striped" value="0" max="100"></progress>
+    </div>
+  
+    <script>
+      var ctx = document.createElement('canvas').getContext('2d');
+      var linGrad = ctx.createLinearGradient(0, 64, 0, 200);
+      linGrad.addColorStop(0.5, 'rgba(255, 255, 255, 1.000)');
+      linGrad.addColorStop(0.5, 'rgba(183, 183, 183, 1.000)');
+  
+      var wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: linGrad,
+        progressColor: 'hsla(200, 100%, 30%, 0.5)',
+        cursorColor: '#fff',
+        barWidth: 3
+      });
+  
+      wavesurfer.on('loading', function (percents) {
+        document.getElementById('progress').value = percents;
+      });
+  
+      wavesurfer.on('ready', function (percents) {
+        document.getElementById('progress').style.display = 'none';
+      });
+  
+      wavesurfer.load('https://file-examples-com.github.io/uploads/2017/11/file_example_WAV_1MG.wav');
+    </script>
+  
+  </body>
+</html>
